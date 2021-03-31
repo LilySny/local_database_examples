@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:local_database_examples/shared/name_dao.dart';
-import 'package:local_database_examples/sqlite/sqlite_dao.dart';
-import 'package:local_database_examples/sqlite/name.dart';
+import 'package:local_database_examples/sqlite/dao/sqlite_dao.dart';
+import 'package:local_database_examples/sqlite/model/name.dart';
 import 'package:local_database_examples/shared/custom_drawer.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -31,13 +31,13 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("NamesList"),
+        title: Text("NamesList - SQLite Example"),
       ),
       drawer: CustomDrawer(),
       body: FutureBuilder<List<Name>>(
           future: _nameDao.findAllNames(),
           builder: (context, snapshot) {
-            if (snapshot.data.isEmpty)
+            if (snapshot == null || snapshot.data.isEmpty)
             return Center(
               child: Text("Name list is empty"),
             );

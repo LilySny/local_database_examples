@@ -1,6 +1,6 @@
 import 'package:local_database_examples/shared/name_dao.dart';
 import 'package:local_database_examples/sqlite/database_connection.dart';
-import 'package:local_database_examples/sqlite/name.dart';
+import 'package:local_database_examples/sqlite/model/name.dart';
 import 'package:sqflite/sqflite.dart';
 
 class SQLiteDao implements NameDao {

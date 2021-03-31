@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:local_database_examples/shared_preferences/shared_preferences_page.dart';
 import 'package:local_database_examples/sqlite/home_page.dart';
 import 'package:local_database_examples/hive/hive_page.dart';
 
@@ -17,7 +18,10 @@ class CustomDrawer extends StatelessWidget {
           ),
           ListTile(
             title: Text("SharedPreferences"),
-            onTap: () {},
+            onTap: () {
+               Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => SharedPreferencesPage()));
+            },
           ),
           ListTile(
             title: Text("Hive"),

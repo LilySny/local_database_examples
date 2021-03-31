@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive/hive.dart';
-import 'package:local_database_examples/hive/models/hive_name.dart';
+import 'package:local_database_examples/hive/model/hive_name.dart';
 import 'package:local_database_examples/shared/custom_drawer.dart';
 import 'package:local_database_examples/hive/hive_boxes.dart';
 
@@ -31,8 +31,8 @@ class _HivePageState extends State<HivePage> {
       drawer: CustomDrawer(),
       body: ValueListenableBuilder(
         valueListenable: Hive.box<HiveName>(HiveBoxes.names).listenable(),
-        builder: (context, Box<HiveName> box, _) {
-          if (box.values.isEmpty)
+        builder: (context, Box<HiveName> box, widget) {
+          if (box.values == null || box.values.isEmpty)
             return Center(
               child: Text("Name list is empty"),
             );

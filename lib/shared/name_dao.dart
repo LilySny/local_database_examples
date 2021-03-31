@@ -1,4 +1,4 @@
-import 'package:local_database_examples/sqlite/name.dart';
+import 'package:local_database_examples/sqlite/model/name.dart';
 
 abstract class NameDao {
 
