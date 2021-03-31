@@ -37,10 +37,13 @@ class _MyHomePageState extends State<MyHomePage> {
       body: FutureBuilder<List<Name>>(
           future: _nameDao.findAllNames(),
           builder: (context, snapshot) {
-            if (snapshot == null || snapshot.data.isEmpty)
-            return Center(
-              child: Text("Name list is empty"),
-            );
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return CircularProgressIndicator();
+            } else if (snapshot == null || snapshot.data.isEmpty) {
+              return Center(
+                child: Text("Name list is empty"),
+              );
+            }
             return ListView.separated(
               separatorBuilder: (context, index) => SizedBox(height: 10.0),
               itemCount: snapshot.data.length,
