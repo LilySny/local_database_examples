@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:local_database_examples/daos/name_dao.dart';
-import 'package:local_database_examples/daos/sqlite_dao.dart';
-import 'package:local_database_examples/models/name.dart';
+import 'package:local_database_examples/shared/name_dao.dart';
+import 'package:local_database_examples/sqlite/sqlite_dao.dart';
+import 'package:local_database_examples/sqlite/name.dart';
+import 'package:local_database_examples/shared/custom_drawer.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key}) : super(key: key);
@@ -32,9 +33,14 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text("NamesList"),
       ),
+      drawer: CustomDrawer(),
       body: FutureBuilder<List<Name>>(
           future: _nameDao.findAllNames(),
           builder: (context, snapshot) {
+            if (snapshot.data.isEmpty)
+            return Center(
+              child: Text("Name list is empty"),
+            );
             return ListView.separated(
               separatorBuilder: (context, index) => SizedBox(height: 10.0),
               itemCount: snapshot.data.length,
