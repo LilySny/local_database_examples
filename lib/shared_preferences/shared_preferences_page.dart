@@ -13,11 +13,10 @@ class _SharedPreferencesPageState extends State<SharedPreferencesPage> {
 
   void _incrementCounter() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    _counter = (prefs.getInt('counter') ?? 0) + 1;
-    await prefs.setInt('counter', _counter);
     setState(() {
-      _counter++;
+      _counter = (prefs.getInt('counter') ?? 0) + 1;
     });
+    await prefs.setInt('counter', _counter);
   }
 
   _getCounter() async {

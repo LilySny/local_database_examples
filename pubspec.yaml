@@ -31,7 +31,6 @@ dependencies:
   shared_preferences: any
   hive: any
   hive_flutter: any
-  path_provider: ^1.6.5
 
 dev_dependencies:
   flutter_test:
