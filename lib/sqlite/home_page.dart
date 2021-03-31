@@ -34,51 +34,59 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text("NamesList - SQLite Example"),
       ),
       drawer: CustomDrawer(),
-      body: FutureBuilder<List<Name>>(
-          future: _nameDao.findAllNames(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return CircularProgressIndicator();
-            } else if (snapshot == null || snapshot.data.isEmpty) {
-              return Center(
-                child: Text("Name list is empty"),
-              );
-            }
-            return ListView.separated(
-              separatorBuilder: (context, index) => SizedBox(height: 10.0),
-              itemCount: snapshot.data.length,
-              itemBuilder: (context, index) {
-                return ListTile(title: Text(snapshot.data[index].text));
-              },
+      body: _nameList(),
+      floatingActionButton: _add(),
+    );
+  }
+
+  Widget _nameList() {
+    return FutureBuilder<List<Name>>(
+        future: _nameDao.findAllNames(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return CircularProgressIndicator();
+          } else if (snapshot == null || snapshot.data.isEmpty) {
+            return Center(
+              child: Text("Name list is empty"),
             );
-          }),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showDialog(
-              context: context,
-              child: AlertDialog(
-                title: Text("Add Name"),
-                content: TextField(
-                  controller: _nameContent,
-                ),
-                actions: [
-                  RaisedButton(
-                      child: Text("Add"),
-                      onPressed: () {
-                        setState(() {
-                          _nameDao
-                              .saveName(Name(text: _nameContent.text))
-                              .then((value) {
-                            Navigator.of(context).pop();
-                            _nameContent.text = "";
-                          });
+          }
+          return ListView.separated(
+            separatorBuilder: (context, index) => SizedBox(height: 10.0),
+            itemCount: snapshot.data.length,
+            itemBuilder: (context, index) {
+              return ListTile(title: Text(snapshot.data[index].text));
+            },
+          );
+        });
+  }
+
+  Widget _add() {
+    return FloatingActionButton(
+      onPressed: () {
+        showDialog(
+            context: context,
+            child: AlertDialog(
+              title: Text("Add Name"),
+              content: TextField(
+                controller: _nameContent,
+              ),
+              actions: [
+                RaisedButton(
+                    child: Text("Add"),
+                    onPressed: () {
+                      setState(() {
+                        _nameDao
+                            .saveName(Name(text: _nameContent.text))
+                            .then((value) {
+                          Navigator.of(context).pop();
+                          _nameContent.text = "";
                         });
-                      }),
-                ],
-              ));
-        },
-        child: Icon(Icons.add),
-      ),
+                      });
+                    }),
+              ],
+            ));
+      },
+      child: Icon(Icons.add),
     );
   }
 }

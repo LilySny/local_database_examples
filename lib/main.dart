@@ -9,12 +9,20 @@ import 'package:local_database_examples/hive/hive_boxes.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  _initializeHive();
+  _initializeSqlite();
+
+  runApp(MyApp());
+}
+
+Future<void> _initializeHive() async {
   await Hive.initFlutter();
   Hive.registerAdapter(HiveNameAdapter());
   await Hive.openBox<HiveName>(HiveBoxes.names);
-  DatabaseConnection.connectDB();
+}
 
-  runApp(MyApp());
+void _initializeSqlite() {
+  DatabaseConnection.connectDB();
 }
 
 class MyApp extends StatelessWidget {
